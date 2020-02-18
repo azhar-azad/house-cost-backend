@@ -1,53 +1,24 @@
-package com.azad.practice.housecostbackend.io.entity;
+package com.azad.practice.housecostbackend.ui.model.response;
 
-import java.io.Serializable;
+public class PersonRest {
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "person")
-public class PersonEntity implements Serializable {
-
-	private static final long serialVersionUID = -391745622317233745L;
-
-	@Id
-	@GeneratedValue
-	private Long id;
-
-	@Column(nullable = false)
 	private String personId;
-
-	@Column(nullable = false)
 	private String name;
-
-	@Column(nullable = false, unique = true)
 	private String email;
-
-	@Column(nullable = false)
 	private String contactNo;
-
-	@Column(nullable = true)
 	private double salary;
 
-	protected PersonEntity() {
+	protected PersonRest() {
 		super();
 	}
 
-	public PersonEntity(String personId, String name, String email, String contactNo, double salary) {
+	public PersonRest(String personId, String name, String email, String contactNo, double salary) {
 		super();
 		this.personId = personId;
 		this.name = name;
 		this.email = email;
 		this.contactNo = contactNo;
 		this.salary = salary;
-	}
-
-	public Long getId() {
-		return id;
 	}
 
 	public String getPersonId() {
