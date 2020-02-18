@@ -8,4 +8,6 @@ import com.azad.practice.housecostbackend.io.entity.PersonEntity;
 @Repository
 public interface PersonRepository extends PagingAndSortingRepository<PersonEntity, Long> {
 
+	PersonEntity findByPersonId(String personId);
+
 }
