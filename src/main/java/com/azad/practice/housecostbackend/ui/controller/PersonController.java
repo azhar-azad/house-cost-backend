@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,7 @@ import com.azad.practice.housecostbackend.ui.model.response.RequestOperationStat
 
 @RestController
 @RequestMapping("persons")
+@CrossOrigin("http://127.0.0.1:4200")
 public class PersonController {
 	
 	@Autowired
@@ -36,7 +38,9 @@ public class PersonController {
 	public PersonRest createPerson(@RequestBody PersonDetailsRequestModel personDetails) {
 		
 		PersonDto personDto = modelMapper.map(personDetails, PersonDto.class);
-		personDto.setSalary(Double.parseDouble(personDetails.getSalary()));
+		if (!personDetails.getSalary().equals("")) {
+			personDto.setSalary(Double.parseDouble(personDetails.getSalary()));
+		}
 		
 		PersonDto createdPerson = personService.createPerson(personDto);
 		

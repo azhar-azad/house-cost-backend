@@ -10,4 +10,6 @@ public interface PersonRepository extends PagingAndSortingRepository<PersonEntit
 
 	PersonEntity findByPersonId(String personId);
 
+	PersonEntity findByEmail(String email);
+
 }

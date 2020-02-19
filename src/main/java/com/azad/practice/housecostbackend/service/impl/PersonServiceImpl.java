@@ -22,20 +22,39 @@ import com.azad.practice.housecostbackend.ui.model.response.ErrorMessages;
 public class PersonServiceImpl implements PersonService {
 	
 	@Autowired
-	PersonRepository personRepository;
+	private PersonRepository personRepository;
 	
 	@Autowired
-	Utils utils;
+	private Utils utils;
 	
-	ModelMapper modelMapper = new ModelMapper();
+	private ModelMapper modelMapper = new ModelMapper();
 
 	@Override
 	public PersonDto createPerson(PersonDto personDto) {
 		
 		PersonEntity personEntity = modelMapper.map(personDto, PersonEntity.class);
 		
+		if (personDto.getName() == "") {
+			throw new PersonServiceException(ErrorMessages.MISSING_REQUIRED_FIELDS.getErrorMessage() + ":PersonName");
+		}
+		
+		if (personDto.getEmail() == "") {
+			throw new PersonServiceException(ErrorMessages.MISSING_REQUIRED_FIELDS.getErrorMessage() + ":PersonEmail");
+		}
+		
+		if (personDto.getContactNo() == "") {
+			throw new PersonServiceException(ErrorMessages.MISSING_REQUIRED_FIELDS.getErrorMessage() + ":PersonContactNo");
+		}
+		
+		if (personRepository.findByEmail(personDto.getEmail()) != null)
+			throw new PersonServiceException(ErrorMessages.RECORD_ALREADY_EXISTS.getErrorMessage());
+		
 		personEntity.setPersonId(utils.generatePersonId(10));
 		PersonEntity createdPerson = personRepository.save(personEntity);
+		
+		if (createdPerson == null) {
+			throw new PersonServiceException(ErrorMessages.COULD_NOT_CREATE_RECORD.getErrorMessage());
+		}
 		
 		PersonDto returnValue = modelMapper.map(createdPerson, PersonDto.class);
 		return returnValue;
@@ -68,6 +87,10 @@ public class PersonServiceImpl implements PersonService {
 		
 		PersonEntity fetchedPerson = personRepository.findByPersonId(personId);
 		
+		if (fetchedPerson == null) {
+			throw new PersonServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+		}
+		
 		PersonDto returnValue = modelMapper.map(fetchedPerson, PersonDto.class);
 		return returnValue;
 	}
@@ -76,6 +99,22 @@ public class PersonServiceImpl implements PersonService {
 	public PersonDto updatePerson(String personId, PersonDto personDto) {
 		
 		PersonEntity personEntity = personRepository.findByPersonId(personId);
+		
+		if (personEntity == null) {
+			throw new PersonServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+		}
+		
+		if (personDto.getName() == "") {
+			throw new PersonServiceException(ErrorMessages.MISSING_REQUIRED_FIELDS.getErrorMessage() + ":PersonName");
+		}
+		
+		if (personDto.getEmail() == "") {
+			throw new PersonServiceException(ErrorMessages.MISSING_REQUIRED_FIELDS.getErrorMessage() + ":PersonEmail");
+		}
+		
+		if (personDto.getContactNo() == "") {
+			throw new PersonServiceException(ErrorMessages.MISSING_REQUIRED_FIELDS.getErrorMessage() + ":PersonContactNo");
+		}
 		
 		personEntity.setName(personDto.getName());
 		personEntity.setEmail(personDto.getEmail());
