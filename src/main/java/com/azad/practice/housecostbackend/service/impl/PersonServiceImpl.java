@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.azad.practice.housecostbackend.exception.PersonServiceException;
 import com.azad.practice.housecostbackend.io.entity.PersonEntity;
 import com.azad.practice.housecostbackend.io.repository.PersonRepository;
+import com.azad.practice.housecostbackend.service.BillService;
 import com.azad.practice.housecostbackend.service.PersonService;
 import com.azad.practice.housecostbackend.shared.dto.PersonDto;
 import com.azad.practice.housecostbackend.shared.utils.Utils;
@@ -26,6 +27,9 @@ public class PersonServiceImpl implements PersonService {
 	
 	@Autowired
 	private Utils utils;
+	
+	@Autowired
+	private BillService billService;
 	
 	private ModelMapper modelMapper = new ModelMapper();
 
@@ -50,6 +54,14 @@ public class PersonServiceImpl implements PersonService {
 			throw new PersonServiceException(ErrorMessages.RECORD_ALREADY_EXISTS.getErrorMessage());
 		
 		personEntity.setPersonId(utils.generatePersonId(10));
+		
+		List<String> billNameList = personDto.getBillNameList();
+		personEntity.setBillEntityList(billService.getBillListByName(billNameList));
+		
+//		for (String billName : billNameList) {
+//			personEntity.addBillEntity(billService.getBillByName(billName));
+//		}
+		
 		PersonEntity createdPerson = personRepository.save(personEntity);
 		
 		if (createdPerson == null) {

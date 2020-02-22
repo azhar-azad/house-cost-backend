@@ -10,4 +10,6 @@ public interface BillRepository extends PagingAndSortingRepository<BillEntity, L
 
 	BillEntity findByBillId(String billId);
 
+	BillEntity findByName(String billName);
+
 }

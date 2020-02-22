@@ -1,4 +1,4 @@
-package com.azad.practice.housecostbackend.ui.controller;
+ package com.azad.practice.housecostbackend.ui.controller;
 
 import java.util.ArrayList;
 import java.util.List;

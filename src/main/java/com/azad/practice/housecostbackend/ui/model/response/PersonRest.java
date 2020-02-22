@@ -1,5 +1,7 @@
 package com.azad.practice.housecostbackend.ui.model.response;
 
+import java.util.List;
+
 public class PersonRest {
 
 	private String personId;
@@ -7,6 +9,7 @@ public class PersonRest {
 	private String email;
 	private String contactNo;
 	private double salary;
+	private List<BillRest> billEntityList;
 
 	protected PersonRest() {
 		super();
@@ -59,6 +62,14 @@ public class PersonRest {
 
 	public void setSalary(double salary) {
 		this.salary = salary;
+	}
+
+	public List<BillRest> getBillEntityList() {
+		return billEntityList;
+	}
+
+	public void setBillEntityList(List<BillRest> billEntityList) {
+		this.billEntityList = billEntityList;
 	}
 
 }

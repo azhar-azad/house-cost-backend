@@ -1,11 +1,15 @@
 package com.azad.practice.housecostbackend.ui.model.request;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PersonDetailsRequestModel {
 
 	private String name;
 	private String email;
 	private String contactNo;
 	private String salary;
+	private List<String> billNameList = new ArrayList<String>();
 
 	protected PersonDetailsRequestModel() {
 		super();
@@ -49,6 +53,14 @@ public class PersonDetailsRequestModel {
 
 	public void setSalary(String salary) {
 		this.salary = salary;
+	}
+
+	public List<String> getBillNameList() {
+		return billNameList;
+	}
+
+	public void setBillNameList(List<String> billNameList) {
+		this.billNameList = billNameList;
 	}
 
 }

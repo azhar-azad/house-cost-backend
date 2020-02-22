@@ -1,6 +1,9 @@
 package com.azad.practice.housecostbackend.shared.dto;
 
 import java.io.Serializable;
+import java.util.List;
+
+import com.azad.practice.housecostbackend.ui.model.response.BillRest;
 
 public class PersonDto implements Serializable {
 
@@ -12,6 +15,8 @@ public class PersonDto implements Serializable {
 	private String email;
 	private String contactNo;
 	private double salary;
+	private List<String> billNameList;
+	private List<BillRest> billEntityList;
 
 	protected PersonDto() {
 		super();
@@ -73,6 +78,22 @@ public class PersonDto implements Serializable {
 
 	public void setSalary(double salary) {
 		this.salary = salary;
+	}
+
+	public List<String> getBillNameList() {
+		return billNameList;
+	}
+
+	public void setBillNameList(List<String> billNameList) {
+		this.billNameList = billNameList;
+	}
+
+	public List<BillRest> getBillEntityList() {
+		return billEntityList;
+	}
+
+	public void setBillEntityList(List<BillRest> billEntityList) {
+		this.billEntityList = billEntityList;
 	}
 
 }

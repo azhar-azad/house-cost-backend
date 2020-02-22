@@ -118,7 +118,7 @@ public class BillServiceImpl implements BillService {
 		
 		billEntity.setName(billDto.getName());
 		billEntity.setAmount(billDto.getAmount());
-		billEntity.setActive(billDto.isActive());
+		billEntity.setActive(billDto.getIsActive());
 		BillEntity updatedBill = billRepository.save(billEntity);
 		
 		BillDto returnValue = modelMapper.map(updatedBill, BillDto.class);
@@ -134,5 +134,22 @@ public class BillServiceImpl implements BillService {
 		}
 		
 		billRepository.delete(billEntity);
+	}
+
+	@Override
+	public BillEntity getBillByName(String billName) {
+		BillEntity billEntity = billRepository.findByName(billName); 
+		return billEntity;
+	}
+	
+	@Override
+	public List<BillEntity> getBillListByName(List<String> billNameList) {
+		List<BillEntity> returnValueList = new ArrayList<BillEntity>();
+		
+		for (String billName : billNameList) {
+			returnValueList.add(getBillByName(billName));
+		}
+		
+		return returnValueList;
 	}
 }

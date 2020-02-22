@@ -1,11 +1,13 @@
 package com.azad.practice.housecostbackend.io.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -30,6 +32,9 @@ public class BillEntity implements Serializable {
 	@Column(nullable = false)
 	private int isActive;
 
+	@ManyToMany(mappedBy = "billEntityList")
+	private List<PersonEntity> personEntityList;
+
 	protected BillEntity() {
 		super();
 	}
@@ -41,7 +46,7 @@ public class BillEntity implements Serializable {
 		this.amount = amount;
 		this.isActive = isActive;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -76,6 +81,14 @@ public class BillEntity implements Serializable {
 
 	public void setActive(int isActive) {
 		this.isActive = isActive;
+	}
+
+	public List<PersonEntity> getPersonEntityList() {
+		return personEntityList;
+	}
+
+	public void setPersonEntityList(List<PersonEntity> personEntityList) {
+		this.personEntityList = personEntityList;
 	}
 
 }

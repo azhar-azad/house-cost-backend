@@ -57,11 +57,11 @@ public class BillDto implements Serializable {
 		this.amount = amount;
 	}
 
-	public int isActive() {
+	public int getIsActive() {
 		return isActive;
 	}
 
-	public void setActive(int isActive) {
+	public void setIsActive(int isActive) {
 		this.isActive = isActive;
 	}
 

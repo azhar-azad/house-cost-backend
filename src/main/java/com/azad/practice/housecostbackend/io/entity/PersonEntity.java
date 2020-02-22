@@ -1,11 +1,15 @@
 package com.azad.practice.housecostbackend.io.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -32,6 +36,13 @@ public class PersonEntity implements Serializable {
 
 	@Column(nullable = true)
 	private double salary;
+
+	@ManyToMany
+	@JoinTable(name = "person_bill",
+		joinColumns = @JoinColumn(name = "person_id"),
+		inverseJoinColumns = @JoinColumn(name = "bill_id")
+	)
+	private List<BillEntity> billEntityList;
 
 	protected PersonEntity() {
 		super();
@@ -88,6 +99,14 @@ public class PersonEntity implements Serializable {
 
 	public void setSalary(double salary) {
 		this.salary = salary;
+	}
+
+	public List<BillEntity> getBillEntityList() {
+		return billEntityList;
+	}
+
+	public void setBillEntityList(List<BillEntity> billEntityList) {
+		this.billEntityList = billEntityList;
 	}
 
 }
